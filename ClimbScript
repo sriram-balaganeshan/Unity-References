@@ -1,0 +1,39 @@
+using System.Collections;
+using UnityEngine;
+
+public class ClimbScript : MonoBehaviour
+{
+    private CharacterController controller;
+    public Animator animator;
+    public int num;
+  
+
+    private void Start()
+    {
+        controller =GetComponent<CharacterController>();
+        animator = GetComponentInChildren<Animator>();
+        
+    }
+
+    public void Update()
+    {
+
+        StartCoroutine(waiter());
+    }
+    IEnumerator waiter()
+    {
+        if (num==5)
+        {
+            controller.transform.position += Vector3.up * Time.deltaTime;
+            animator.SetBool("climb", true);
+            Debug.Log("Climbv");
+            yield return new WaitForSeconds(2);
+            num = 9;
+        }
+        else
+        {
+            animator.SetBool("climb", false);
+        }
+       
+    }
+}
